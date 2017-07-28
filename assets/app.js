@@ -7,7 +7,8 @@ $(document).on("click", ".topics", function(event){
   var buttonText = $(this).attr("data-name");
   var api_key = '6e5baa3647a549e18bc64f6bf6e79fd8'
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + buttonText + "&api_key=" + api_key;
-console.log(buttonText);
+// console.log(buttonText);
+// console.log(queryURL);
   $.ajax({
     url: queryURL + "&limit=10",
     method: "GET"
@@ -17,7 +18,7 @@ console.log(buttonText);
     var gifDiv = $("<div class='item'>");
     var gifImage = $("<img>");
     gifImage.attr("src",
-  gifs[i].images.fixed_height.url);
+  gifs[i].images.fixed_width.url);
 
   gifDiv.prepend(gifImage);
 
