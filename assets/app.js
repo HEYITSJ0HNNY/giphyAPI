@@ -1,16 +1,17 @@
-var topics = ["games", "movies", "reactions", "pokemon", "trending"];
+var topics = ["Overwatch", "PUBG", "Rocket League", "Space Jam", "RGB"];
 
 showButtons();
 
-$(document).on("click", "topics", function(event){
-  var buttonText = $(this).attr("data-topics");
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=6e5baa3647a549e18bc64f6bf6e79fd8";
+$(document).on("click", ".topics", function(event){
+  $("#showGifs").empty();
+  var buttonText = $(this).attr("data-name");
+  var api_key = '6e5baa3647a549e18bc64f6bf6e79fd8'
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + buttonText + "&api_key=" + api_key;
 console.log(buttonText);
   $.ajax({
-    url: queryURL,
+    url: queryURL + "&limit=10",
     method: "GET"
-  })
-  .done(function(response){
+  }).done(function(response){
   var gifs = response.data;
   for(var i = 0; i < gifs.length; i++){
     var gifDiv = $("<div class='item'>");
@@ -20,17 +21,16 @@ console.log(buttonText);
 
   gifDiv.prepend(gifImage);
 
-  $("showGifs").append(gifDiv);
+  $("#showGifs").append(gifDiv);
 }
 });
 });
 
 function showButtons(){
-  $("#buttons").empty();
   for(var i = 0; i < topics.length; i++){
     var a = $("<button>");
     a.addClass("topics");
-    a.attr("buttons", topics[i]);
+    a.attr("data-name", topics[i]);
     a.text(topics[i]);
     $("#buttons").append(a);
 
